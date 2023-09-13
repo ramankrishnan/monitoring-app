@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ramankrishnan/monitoring-app.git']])
+            }
+        }
+        stage('build') {
+            steps {
+                git 'https://github.com/ramankrishnan/monitoring-app.git'
+                sh 'python3 demo.py'
+            }
+        }
+    }
+}
